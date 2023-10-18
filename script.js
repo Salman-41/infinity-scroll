@@ -3,18 +3,32 @@ const loader = document.getElementById("loader");
 
 let photosArray = [];
 
+//Helper function to set Attribute on DOM
+function setAttribute(element, attributes) {
+  for (let key in attributes) {
+    element.attributes[key];
+  }
+}
+
 //Create Elements for Links & Photos, Add to DOM
 function displayPhotos() {
   photosArray.forEach((photo) => {
     //Create <a> to link to Unsplash
     const anchorItem = document.createElement("a");
-    anchorItem.setAttribute("href", photo.links.html);
+    // anchorItem.setAttribute("href", photo.links.html);
+    // anchorItem.setAttribute("target", "_blank");
+    setAttribute(anchorItem, {
+      href: photo.links.html,
+      target: "_blank",
+    });
 
     //Create <img> for photos
     const image = document.createElement("img");
-    image.setAttribute("src", photo.urls.regular);
-    image.setAttribute("alt", photo.alt_description);
-    image.setAttribute("title", photo.alt_description);
+    setAttribute(image, {
+      src: photo.urls.regular,
+      alt: photo.alt_description,
+      title: photo.alt_description,
+    });
 
     //Put <img> inside <a> then both inside ${imageContainer}
     imageContainer.appendChild(anchorItem);
@@ -35,7 +49,7 @@ async function getPhotos() {
     console.log(photosArray);
     displayPhotos();
   } catch (error) {
-    //error
+    // error
   }
 }
 
