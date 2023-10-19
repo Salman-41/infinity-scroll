@@ -1,42 +1,47 @@
+// DOM elements
 const imageContainer = document.getElementById("image-container");
 const loader = document.getElementById("loader");
+const errorMessage = document.getElementById("error-message");
 
+// Variables to manage image loading and Unsplash API data
 let ready = false;
 let imagesLoaded = 0;
 let totalImages = 0;
 let photosArray = [];
 
-//check if all images were loaded
+// Function to check if all images have been loaded
 function imageLoaded() {
   imagesLoaded++;
   if (imagesLoaded === totalImages) {
     ready = true;
-    loader.hidden = true;
+    loader.hidden = true; // Hide the loader once all images are loaded
   }
 }
 
-//Helper function to set Attribute on DOM
+// Helper function to set attributes on DOM elements
 function setAttribute(element, attributes) {
   for (let key in attributes) {
     element.setAttribute(key, attributes[key]);
   }
 }
 
-//Create Elements for Links & Photos, Add to DOM
+// Function to display photos in the DOM
 function displayPhotos() {
+  // Clear the error message when the request is successful
+  errorMessage.style.display = "none";
+
   totalImages = photosArray.length;
   imagesLoaded = 0;
+
   photosArray.forEach((photo) => {
-    //Create <a> to link to Unsplash
+    // Create <a> element to link to Unsplash
     const anchorItem = document.createElement("a");
-    // anchorItem.setAttribute("href", photo.links.html);
-    // anchorItem.setAttribute("target", "_blank");
     setAttribute(anchorItem, {
       href: photo.links.html,
       target: "_blank",
     });
 
-    //Create <img> for photos
+    // Create <img> element for photos
     const image = document.createElement("img");
     setAttribute(image, {
       src: photo.urls.regular,
@@ -44,32 +49,45 @@ function displayPhotos() {
       title: photo.alt_description,
     });
 
-    //Event Listener, check when each id finished loading
+    // Add an event listener to check when each image finishes loading
     image.addEventListener("load", imageLoaded);
-    //Put <img> inside <a> then both inside ${imageContainer}
+
+    // Put <img> inside <a> and both inside the imageContainer
     anchorItem.appendChild(image);
     imageContainer.appendChild(anchorItem);
   });
 }
 
-//Unsplash API
+// Unsplash API
 const apiKey = "rXogb3nNf1uqzcKOnnp7dPDydt8fChP3rglMYADMuA4";
 const count = 30;
 const apiUrl = `https://api.unsplash.com/photos/random/?client_id=${apiKey}&count=${count}`;
 
-//Get Images from Unsplash API
+// Function to get images from the Unsplash API
 async function getPhotos() {
   try {
     const response = await fetch(apiUrl);
+    if (!response.ok) {
+      throw new Error("Failed to fetch data from the API.");
+    }
     photosArray = await response.json();
     displayPhotos();
     console.log(photosArray);
   } catch (error) {
-    // error
+    console.error(error);
+
+    // Display an error message to the user
+    errorMessage.textContent = "Failed to load images. Please try again later.";
+    errorMessage.style.display = "block";
+
+    // Optionally, set a timer to hide the error message after a few seconds
+    setTimeout(() => {
+      errorMessage.style.display = "none";
+    }, 5000); // Hide the message after 5 seconds
   }
 }
 
-//Check to see if  near bottom of page,Load more Photos
+// Check if the user is near the bottom of the page and load more photos
 window.addEventListener("scroll", () => {
   if (
     window.innerHeight + window.scrollY >= document.body.offsetHeight - 100 &&
@@ -79,4 +97,6 @@ window.addEventListener("scroll", () => {
     getPhotos();
   }
 });
+
+// Initial call to getPhotos when the page loads
 getPhotos();
