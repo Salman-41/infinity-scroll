@@ -6,7 +6,7 @@ let photosArray = [];
 //Helper function to set Attribute on DOM
 function setAttribute(element, attributes) {
   for (let key in attributes) {
-    element.attributes[key];
+    element.setAttribute(key, attributes[key]);
   }
 }
 
@@ -31,23 +31,23 @@ function displayPhotos() {
     });
 
     //Put <img> inside <a> then both inside ${imageContainer}
-    imageContainer.appendChild(anchorItem);
     anchorItem.appendChild(image);
+    imageContainer.appendChild(anchorItem);
   });
 }
 
 //Unsplash API
 const apiKey = "rXogb3nNf1uqzcKOnnp7dPDydt8fChP3rglMYADMuA4";
-const count = 10;
+const count = 1;
 const apiUrl = `https://api.unsplash.com/photos/random/?client_id=${apiKey}&count=${count}`;
 
 //Get Images from Unsplash API
 async function getPhotos() {
   try {
     const response = await fetch(apiUrl);
-    photosArray = await response.json;
-    console.log(photosArray);
+    photosArray = await response.json();
     displayPhotos();
+    console.log(photosArray);
   } catch (error) {
     // error
   }
