@@ -47,13 +47,9 @@ This project relies on the following technologies and resources:
 
 ## Credits
 
-- Project created by [Your Name].
+- Project created by Salman.
 - Inspired by the [Unsplash API](https://unsplash.com/developers) and [Unsplash](https://unsplash.com).
-
-## License
-
-This project is open-source and available under the [MIT License](LICENSE.md).
 
 ## Contact
 
-For any questions or inquiries, feel free to contact [Your Email Address].
+For any questions or inquiries, feel free to contact salman.yz@outlook.com.
