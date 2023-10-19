@@ -52,4 +52,4 @@ This project relies on the following technologies and resources:
 
 ## Contact
 
-For any questions or inquiries, feel free to contact salman.yz@outlook.com.
+For any questions or inquiries, feel free to contact <salman.yz@outlook.com>.
