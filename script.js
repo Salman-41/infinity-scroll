@@ -97,5 +97,4 @@ window.addEventListener("scroll", () => {
   }
 });
 
-// Initial call to getPhotos when the page loads
-getPhotos();
+getPhotos(); // Initial call to getPhotos when the page loads
