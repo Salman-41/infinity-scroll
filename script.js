@@ -27,8 +27,7 @@ function setAttribute(element, attributes) {
 
 // Function to display photos in the DOM
 function displayPhotos() {
-  // Clear the error message when the request is successful
-  errorMessage.style.display = "none";
+  errorMessage.style.display = "none"; // Clear the error message when the request is successful
 
   totalImages = photosArray.length;
   imagesLoaded = 0;
