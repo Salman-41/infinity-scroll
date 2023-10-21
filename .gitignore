@@ -1,2 +1,2 @@
-# Ignore the 'cosine' directory and its contents
+# Ignore the '.cosine' directory and its contents
 .cosine/
